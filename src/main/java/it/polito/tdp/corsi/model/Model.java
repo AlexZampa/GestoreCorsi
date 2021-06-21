@@ -30,7 +30,10 @@ public class Model {
 	}
 	
 	public Map<String, Integer> getDivisioneCDS(Corso corso) {
+		/*
+		 * PRIMA VERSIONE
 		List<Studente> studenti = dao.getStudentiByCorso(corso);
+		
 		Map<String, Integer> statistiche = new HashMap<String, Integer>();
 		
 		for(Studente s: studenti) {
@@ -43,6 +46,8 @@ public class Model {
 			}
 		}
 		return statistiche;
+		*/
+		return dao.getDivisioneCDS(corso);
 	}
 	
 }

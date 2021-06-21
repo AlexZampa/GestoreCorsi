@@ -132,7 +132,31 @@ public class CorsoDAO {
 	
 	
 	
-	
+	public Map<String, Integer> getDivisioneCDS(Corso corso) {
+		String sql = "SELECT s.CDS, COUNT(*) AS tot "
+				+ "FROM studente AS s, iscrizione AS i "
+				+ "WHERE s.matricola = i.matricola AND s.CDS <> \"\" AND codins = ? "
+				+ "GROUP BY s.CDS";
+		
+		Map<String, Integer> statistiche = new HashMap<String, Integer>();
+		
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql); 
+			st.setString(1, corso.getCodins());
+			ResultSet res = st.executeQuery();
+			
+			while (res.next()) {
+				statistiche.put(res.getString("CDS"), res.getInt("tot"));
+			}
+			conn.close();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+			
+		return statistiche;
+	}
 	
 	
 	
